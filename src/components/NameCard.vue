@@ -3,50 +3,73 @@
     <div class="avatar-container">
       <img src="/头像.jpg" alt="头像" class="avatar" />
     </div>
-    <h1 class="name">龙轲垒</h1>
+    <h1 class="name">边城巷深</h1>
     <div class="job-title">求职意向：Java后端开发</div>
 
-    <div class="info-section">
-      <div class="info-item">
-        <el-icon><User /></el-icon>
-        <span>男 | 21岁</span>
-      </div>
-      <div class="info-item">
-        <el-icon><Phone /></el-icon>
-        <span>18091724152</span>
-      </div>
-      <div class="info-item">
-        <el-icon><Message /></el-icon>
-        <span>2185833595@qq.com</span>
-      </div>
-      <div class="info-item">
-        <el-icon><School /></el-icon>
-        <span>西北工业大学</span>
-      </div>
-      <div class="info-item">
-        <el-icon><Link /></el-icon>
-        <span>github.com/Harryup-lei</span>
-      </div>
-    </div>
+    <el-divider>
+      <span class="info-toggle" @click="isInfoExpanded = !isInfoExpanded">
+        <span>个人信息</span>
+        <el-icon class="toggle-icon" :class="{ expanded: isInfoExpanded }">
+          <ArrowRight />
+        </el-icon>
+      </span>
+    </el-divider>
 
-    <el-divider>专业技能</el-divider>
+    <el-collapse-transition>
+      <div v-show="isInfoExpanded" class="info-section">
+        <div class="info-item">
+          <el-icon><User /></el-icon>
+          <span>男 | 21岁</span>
+        </div>
+        <div class="info-item">
+          <el-icon><Phone /></el-icon>
+          <span>18891837322</span>
+        </div>
+        <div class="info-item">
+          <el-icon><Message /></el-icon>
+          <span>2185833595@qq.com</span>
+        </div>
+        <div class="info-item">
+          <el-icon><School /></el-icon>
+          <span>西北工业大学</span>
+        </div>
+        <div class="info-item">
+          <el-icon><Link /></el-icon>
+          <a href="https://github.com/Harryup-lei" target="_blank" class="github-link">
+            github.com/Harryup-lei
+          </a>
+        </div>
+      </div>
+    </el-collapse-transition>
 
-    <div class="skills-section">
-      <el-tag
-        v-for="(skill, index) in skills"
-        :key="index"
-        type="info"
-        class="skill-tag"
-        effect="plain"
-      >
-        {{ skill }}
-      </el-tag>
-    </div>
+    <el-divider>
+      <span class="info-toggle" @click="isSkillsExpanded = !isSkillsExpanded">
+        <span>专业技能</span>
+        <el-icon class="toggle-icon" :class="{ expanded: isSkillsExpanded }">
+          <ArrowRight />
+        </el-icon>
+      </span>
+    </el-divider>
+
+    <el-collapse-transition>
+      <div v-show="isSkillsExpanded" class="skills-section">
+        <el-tag
+          v-for="(skill, index) in skills"
+          :key="index"
+          type="info"
+          class="skill-tag"
+          effect="plain"
+        >
+          {{ skill }}
+        </el-tag>
+      </div>
+    </el-collapse-transition>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
+import { ArrowRight } from '@element-plus/icons-vue'
 
 const skills = ref([
   '扎实的计算机基础知识，常用数据结构与算法',
@@ -60,6 +83,9 @@ const skills = ref([
   '微服务架构',
   'Git、Maven、Docker'
 ])
+
+const isInfoExpanded = ref(true)
+const isSkillsExpanded = ref(true)
 </script>
 
 <style scoped>
@@ -106,7 +132,7 @@ const skills = ref([
 }
 
 .info-section {
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
 
 .info-item {
@@ -121,6 +147,39 @@ const skills = ref([
 
 .info-item .el-icon {
   color: #909399;
+}
+
+.github-link {
+  color: #409EFF;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.github-link:hover {
+  color: #66b1ff;
+  text-decoration: underline;
+}
+
+.info-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.3s ease;
+}
+
+.info-toggle:hover {
+  color: #409EFF;
+}
+
+.toggle-icon {
+  transition: transform 0.3s ease;
+  font-size: 12px;
+}
+
+.toggle-icon.expanded {
+  transform: rotate(90deg);
 }
 
 .skills-section {

@@ -37,21 +37,27 @@ body {
 }
 
 .app {
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
   position: relative;
-  overflow: hidden;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.app::-webkit-scrollbar {
+  display: none;
 }
 
 .sky-section {
-  height: 50%;
+  min-height: 50vh;
   position: relative;
   background: linear-gradient(to bottom, #001122 0%, #003366 100%);
   overflow: hidden;
 }
 
 .white-section {
-  height: 50%;
+  min-height: 50vh;
   background: #ffffff;
   position: relative;
 }
